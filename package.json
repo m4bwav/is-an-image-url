@@ -1,0 +1,55 @@
+{
+  "name": "is-an-image-url",
+  "version": "1.0.0",
+  "description": "This package was originally created as an async replacement for is-image-url.  I was using that one but my sync security scanner said there was issue with one of the dependencies.  I posted a pull request but it hasn't been reviewed, so onward and upward.  The other lib was synchronisis, I figured I'd make an async version.",
+  "main": "index.js",
+  "scripts": {
+    "test": "snyk test && xo && nyc ava",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "travis-after-success": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m4bwav/is-an-image-url.git"
+  },
+  "keywords": [
+    "image",
+    "url"
+  ],
+  "files": [
+    "index.js",
+    "cli.js",
+    "lib"
+  ],
+  "bin": "cli.js",
+  "author": "Mark Rogers (http://www.markdavidrogers.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m4bwav/is-an-image-url/issues"
+  },
+  "homepage": "https://github.com/m4bwav/is-an-image-url#readme",
+  "dependencies": {
+    "is-image": "^1.0.1",
+    "is-url": "^1.2.2",
+    "request": "^2.81.x"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "execa": "^0.6.3",
+    "coveralls": "^2.11.9",
+    "codecov.io": "^0.1.6",
+    "nyc": "^10.2.0",
+    "xo": "^0.18.1",
+    "snyk": "^1.29.0"
+  },
+  "xo": {
+    "rules": {
+      "xo/no-process-exit": "off",
+      "linebreak-style": "off",
+      "indent": [
+        "error",
+        2
+      ]
+    }
+  }
+}
