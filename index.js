@@ -1,12 +1,43 @@
 'use strict';
 
+const {URL} = require('url');
 const request = require('request');
 const isImage = require('is-image');
 const isUrl = require('is-url');
 
-var exports = module.exports = {};
+const exports = {};
+module.exports = exports;
 
-function replacePlainLinks(url, callback) {
+function handleRequestResult(error, response, callback){
+  if (error) {  
+    callback(false);
+  }
+}
+
+function requestUrlAndLookForImageHeader(url, callback, timeout){
+  if (!timeout) {
+    timeout = 20 * 1000;
+  }
+
+  request.get(url, {timeout}, (error, response) => {
+    handleRequestResult(error, response, callback);
+  });
+}
+
+function isUrlAnImageUrl(url, callback, timeout) {
+  const urlObject = new URL(url);
+
+  const path = urlObject.pathname;
+
+  if (isImage(path)) {
+    callback(true);
+    return;
+  }
+
+  requestUrlAndLookForImageHeader(url, callback, timeout);
+}
+
+function isAnImageUrl(url, callback, timeout) {
   if (!callback) {
     return;
   }
@@ -22,7 +53,7 @@ function replacePlainLinks(url, callback) {
     return;
   }
 
-  request();
+  isUrlAnImageUrl(url, callback, timeout);
 }
 
-exports.replacePlainLinks = replacePlainLinks;
+exports.isAnImageUrl = isAnImageUrl;
