@@ -1,31 +1,39 @@
 'use strict';
 
-const {URL} = require('url');
+const urlLib = require('url');
 const request = require('request');
 const isImage = require('is-image');
 const isUrl = require('is-url');
 
-const exports = {};
-module.exports = exports;
-
-function handleRequestResult(error, response, callback){
-  if (error) {  
+function handleRequestResult(error, response, callback) {
+  if (error || !response || !response.headers) {
     callback(false);
+    return;
   }
+
+  const contentType = response.headers['content-type'];
+
+  const hasImageContentType = contentType && contentType.search(/^image\//) !== -1;
+
+  callback(hasImageContentType);
 }
 
-function requestUrlAndLookForImageHeader(url, callback, timeout){
+function requestUrlAndLookForImageHeader(url, callback, timeout) {
   if (!timeout) {
     timeout = 20 * 1000;
   }
 
-  request.get(url, {timeout}, (error, response) => {
-    handleRequestResult(error, response, callback);
-  });
+  try {
+    request.get(url, {timeout}, (error, response) => {
+      handleRequestResult(error, response, callback);
+    });
+  } catch (err) {
+    callback(false);
+  }
 }
 
 function isUrlAnImageUrl(url, callback, timeout) {
-  const urlObject = new URL(url);
+  const urlObject = urlLib.parse(url);
 
   const path = urlObject.pathname;
 
@@ -39,8 +47,9 @@ function isUrlAnImageUrl(url, callback, timeout) {
 
 function isAnImageUrl(url, callback, timeout) {
   if (!callback) {
-    return;
+    throw new Error('Callback must be set to receive the result of the image check.');
   }
+
   if (!url) {
     callback(false);
     return;
@@ -56,4 +65,4 @@ function isAnImageUrl(url, callback, timeout) {
   isUrlAnImageUrl(url, callback, timeout);
 }
 
-exports.isAnImageUrl = isAnImageUrl;
+module.exports = isAnImageUrl;

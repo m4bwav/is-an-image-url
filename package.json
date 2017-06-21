@@ -30,6 +30,7 @@
   "homepage": "https://github.com/m4bwav/is-an-image-url#readme",
   "dependencies": {
     "is-image": "^1.0.1",
+    "meow": "3.7.0",
     "is-url": "^1.2.2",
     "request": "^2.81.x"
   },
