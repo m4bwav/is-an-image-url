@@ -1,4 +1,6 @@
 # is-an-image-url
+
+[![Join the chat at https://gitter.im/m4bwav/is-an-image-url](https://badges.gitter.im/m4bwav/is-an-image-url.svg)](https://gitter.im/m4bwav/is-an-image-url?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![npm package](https://nodei.co/npm/is-an-image-url.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/is-an-image-url/)
 
 [![Build Status](https://img.shields.io/travis/m4bwav/is-an-image-url/master.svg)](https://travis-ci.org/m4bwav/is-an-image-url)
