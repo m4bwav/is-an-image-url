@@ -52,7 +52,7 @@ $ is-an-image-url --help
     $ is-an-image-url "http://www.google.com"
 ```
 
-The isAnImageUrl call will use the callback function with the following signature callback(isAnImageResult).
+The isAnImageUrl package will use the callback function with the following signature callback(isAnImageResult).
 `isAnImageResult` will be a bool, true if the url is for an image and false otherwise.
 ## License
 
