@@ -10,7 +10,7 @@
   
 [![NPM](https://nodei.co/npm-dl/is-an-image-url.png?months=3)](https://nodei.co/npm/is-an-image-url/)
 
-This package was originally created as an async replacement for is-image-url.  I was using that one but my sync security scanner said there was issue with one of the dependencies.  I posted a pull request but a new version never got published, so onward and upward.  The other lib was synchronous, I figured I'd make an async version.
+Checks to see if a url is an image url.  This package was originally created as an async replacement for is-image-url.  I was using that one but my sync security scanner said there was issue with one of the dependencies.  I posted a pull request but a new version never got published, so onward and upward.  The other lib was synchronous, I figured I'd make an async version.
 
 
 ## Installation
