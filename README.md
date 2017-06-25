@@ -3,6 +3,7 @@
 
 [![Build Status](https://img.shields.io/travis/m4bwav/is-an-image-url/master.svg)](https://travis-ci.org/m4bwav/is-an-image-url)
 [![Dependency Status](https://img.shields.io/david/m4bwav/is-an-image-url.svg)](https://david-dm.org/m4bwav/is-an-image-url)
+[![Coverage Status](https://img.shields.io/coveralls/m4bwav/is-an-image-url/master.svg)](https://coveralls.io/github/m4bwav/is-an-image-url?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/is-an-image-url/badge.svg?style=flat-square)](https://snyk.io/test/npm/is-an-image-url)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![Gitter](https://badges.gitter.im/m4bwav/is-an-image-url.svg)](https://gitter.im/m4bwav/is-an-image-url?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)  
