@@ -4,7 +4,7 @@
   "description": "This package was originally created as an async replacement for is-image-url.  I was using that one but my sync security scanner said there was issue with one of the dependencies.  I posted a pull request but a new version never got published, so onward and upward.  The other lib was synchronous, I figured I'd make an async version.",
   "main": "index.js",
   "scripts": {
-    "test": "snyk test && xo && nyc ava",
+    "test": "xo && nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "travis-after-success": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -29,19 +29,19 @@
   },
   "homepage": "https://github.com/m4bwav/is-an-image-url#readme",
   "dependencies": {
-    "is-image": "^2.0.0",
-    "is-url": "^1.2.2",
-    "meow": "3.7.0",
-    "request": "^2.81.x"
+    "is-image": "^3.0.0",
+    "is-url": "^1.2.4",
+    "meow": "^5.0.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
-    "execa": "^0.6.3",
-    "coveralls": "^2.11.9",
+    "ava": "^2.4.0",
     "codecov.io": "^0.1.6",
-    "nyc": "^10.2.0",
-    "xo": "^0.18.1",
-    "snyk": "^1.29.0"
+    "coveralls": "^3.0.9",
+    "execa": "^3.4.0",
+    "nyc": "^14.1.1",
+    "snyk": "^1.251.2",
+    "xo": "^0.25.3"
   },
   "xo": {
     "rules": {

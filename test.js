@@ -1,5 +1,5 @@
 import test from 'ava';
-import isAnImageUrl from './';
+import isAnImageUrl from '.';
 
 global.Promise = Promise;
 
@@ -14,6 +14,7 @@ test.cb('Should work with a valid image url', t => {
     } else {
       t.fail();
     }
+
     t.end();
   });
 });
@@ -25,6 +26,7 @@ test.cb('Google.com should not be an image', t => {
     } else {
       t.pass();
     }
+
     t.end();
   });
 });
@@ -36,6 +38,7 @@ test.cb('Won\'t work with an invalid url', t => {
     } else {
       t.pass();
     }
+
     t.end();
   });
 });
@@ -47,6 +50,7 @@ test.cb('Shouldn\'t work with a 404', t => {
     } else {
       t.pass();
     }
+
     t.end();
   });
 });
@@ -54,7 +58,7 @@ test.cb('Shouldn\'t work with a 404', t => {
 test('Won\'t work without a callback', t => {
   try {
     isAnImageUrl(googleUrl);
-  } catch (err) {
+  } catch {
     t.pass();
   }
 });

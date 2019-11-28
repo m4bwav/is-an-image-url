@@ -27,13 +27,13 @@ function requestUrlAndLookForImageHeader(url, callback, timeout) {
     request.get(url, {timeout}, (error, response) => {
       handleRequestResult(error, response, callback);
     });
-  } catch (err) {
+  } catch {
     callback(false);
   }
 }
 
 function isUrlAnImageUrl(url, callback, timeout) {
-  const urlObject = urlLib.parse(url);
+  const urlObject = new urlLib.URL(url);
 
   const path = urlObject.pathname;
 

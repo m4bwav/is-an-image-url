@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
-const isAnImageUrl = require('./');
+const isAnImageUrl = require('.');
 
 const cli = meow({
   help: [
