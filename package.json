@@ -31,7 +31,7 @@
   "dependencies": {
     "is-image": "^3.0.0",
     "is-url": "^1.2.4",
-    "meow": "^5.0.0",
+    "meow": "^6.1.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
