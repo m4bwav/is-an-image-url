@@ -3,21 +3,21 @@
 <!-- Keep under 50 lines. Replace, never append. Written at the end of a work session so the next one starts without re-deriving state. -->
 
 ## Current state
-- Phases 0 and 1 of the package-modernize run are done (2026-09-25) and committed locally on `master`; **nothing is pushed** and nothing on GitHub or npm was changed.
-- Survey, baseline, dependents, capture findings and the fetch probe: [notes/2026-09-25-phase-0-survey-baseline-and-dependents.md](notes/2026-09-25-phase-0-survey-baseline-and-dependents.md).
-- Golden capture of the published 1.0.4: `test/golden/1.0.4.json` (82 cases, 11 CLI runs) with `capture-1.0.4.cjs`, `codec.cjs`, `fixture-server.cjs`; `fetch-probe.cjs` is evidence only.
-- The plan: [plans/2026-09-25-modernization-and-v2-release.md](plans/2026-09-25-modernization-and-v2-release.md); the decision record: [decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md](decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md).
-- everlast: mode repo, sync **off** for this no-push run (switch to push after the review).
+- Rulings 2026-09-26: the maintainer accepted every recommendation (confirmed first-hand); OKs for D10, D11, D14 given. everlast sync is push.
+- Phases 2 and 3 done on branch `v2`: PR #25 (https://github.com/m4bwav/is-an-image-url/pull/25). 377 tests; CI green on every job (runs 36245467641 and 36246369400); review summary posted as a PR comment.
+- Done in Phase 4 already: the three dead webhooks deleted (0 left); repository settings, secret scanning, push protection, private vulnerability reporting, read-only workflow permissions.
+- Trusted publisher: set up by the maintainer 2026-09-26.
 
 ## In progress
-- The plan review: the maintainer rules on the decisions table.
+- Stop: the maintainer reviews and merges PR #25 (squash).
 
 ## Decisions made this session
-- All proposed, none ruled: keep 1.0.4's callback answers except eleven named fixes (D1), add a Promise form (D6), zero dependencies with fetch (D5), callable require() (D2), restore the CLI (D6), 2.0.0 then deprecate 1.x (D4).
+- POSIX path handling on every platform (1.0.4 on Windows split on backslashes); documented in CHANGELOG.
+- Long timeouts are clamped to 2147483647 ms; the CommonJS declaration exports no type names (answered in the review comment).
 
 ## Dead ends hit
-- The old suite cannot run on Node 24 (xo 0.25 and nyc 14 crash); ava 2 alone passes but uses google.com.
-- The published CLI cannot be used as a baseline: it crashes on every call; 1.0.3's CLI shows the intended contract.
+- Node 20, 22, 26: fetch reused a pooled socket the fixture server had just destroyed; the suites wait 30 ms after dropConnections().
+- `xo --fix` removed `| null` from the public types; restored with a reasoned disable.
 
 ## Next single action
-The maintainer rules on D1, D3b, D4 and D6 and gives or refuses the OKs in D10 (18 branch deletions), D11 (3 webhooks) and D14 (settings, everlast sync push); then push master, create branch `v2`, and write the golden test first.
+After the merge: confirm Dependabot alerts are 0, close the 17 bot PRs with the plan's comments (`gh pr close N --delete-branch`), delete `mime-issue`, add the ruleset on master, check the README CI badge, then `npm version 2.0.0-beta.1` and `git push --follow-tags`; stop for the maintainer's approval on npm.
