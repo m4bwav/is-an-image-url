@@ -15,7 +15,7 @@ The second run of the package-modernize skill (github.com/m4bwav/package-moderni
 
 ## Status
 
-Active. Phases 0 and 1 done on 2026-09-25. **Plan review done 2026-09-26: the maintainer accepted every recommendation** (confirmed in the session): D1 fixes in both forms, D3b is-image 3.1.0's list exactly, D4 2.0.0 then deprecate 1.x, D6 restore the CLI with exit 0 for `false`; OKs given for D10 (18 branch deletions), D11 (3 webhooks) and D14 (settings, everlast sync push). Phase 2 started 2026-09-26.
+Released: 2.0.0 on npm under latest, 2026-09-26; only the 1.x deprecation remains. Phases 0 and 1 done on 2026-09-25. **Plan review done 2026-09-26: the maintainer accepted every recommendation** (confirmed in the session): D1 fixes in both forms, D3b is-image 3.1.0's list exactly, D4 2.0.0 then deprecate 1.x, D6 restore the CLI with exit 0 for `false`; OKs given for D10 (18 branch deletions), D11 (3 webhooks) and D14 (settings, everlast sync push). Phase 2 started 2026-09-26.
 
 ## Goal
 
@@ -136,9 +136,10 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 - [x] Approved by the maintainer; verified from the registry: dist-tags next 2.0.0-beta.3, signature and attestation verified, verify-published run 36249497972 green after the Bun step fix (2026-09-26)
 ### Phase 6: release
 - [x] Changelog dated; 2.0.0 tagged and staged (release run 36249691630, stage id fa2f0209-6448-4188-aaee-2c76b7bbe2c9, 2026-09-26)
-- [ ] **Stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
+- [x] Approved by the maintainer; verified from the registry (latest 2.0.0, signature and attestation, verify-published run 36251363432), GitHub Release v2.0.0 (2026-09-26)
+- [ ] The maintainer deprecates 1.x (D4; needs npm 2FA)
 ### Phase 7: wrap-up
-- [ ] HANDOFF.md around standing work; inventory row; lessons into the skill; what the kickoff prompt got wrong
+- [x] HANDOFF.md around standing work; inventory row; lessons into the skill (C-20260926-1 to -5, L-022 to L-030); what the kickoff prompt got wrong (log 2026-09-25 correction: the CLI had been broken since 1.0.4) (2026-09-26)
 
 ## Test strategy: every artifact, every runtime, and the behaviour itself
 
