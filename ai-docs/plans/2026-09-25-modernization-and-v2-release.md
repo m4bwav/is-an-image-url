@@ -132,7 +132,8 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 - [x] Alerts 0; 17 bot pull requests closed with one comment each naming d9e246b; all 18 branches deleted (master is the only remote branch); webhooks removed; repo settings; secret scanning and push protection; private vulnerability reporting; workflow permissions read (2026-09-26); README badges all 200
 ### Phase 5: release rehearsal
 - [x] The maintainer adds the trusted publisher (fields in D13), reported 2026-09-26
-- [ ] 2.0.0-beta.1 tagged and staged (`npm version 2.0.0-beta.1`, `git push --follow-tags`; auto mode refused it as "Create Public Surface" on 2026-09-26 even after a "go", so the maintainer runs it); **stop** for the approval; verified from the registry (run id)
+- [x] Beta tagged and staged: 2.0.0-beta.3 (beta.1 and beta.2 failed in release.yml on the changelog heading and its link; never staged), run 36248115597, stage id 516120e1-4155-4e48-8ca7-20c5de8a7fbf (2026-09-26)
+- [ ] **Stop** for the maintainer's approval on npm (Staged Packages, 2FA); then verified from the registry (run id)
 ### Phase 6: release
 - [ ] Changelog dated; 2.0.0 tagged and staged; **stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
 ### Phase 7: wrap-up
