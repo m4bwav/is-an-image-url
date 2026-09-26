@@ -10,7 +10,9 @@
 ## Waiting for the maintainer
 The Claude Code auto-mode classifier refused further GitHub writes after the PR closures, so these two steps need the maintainer to run them or approve them in a session:
 
-1. Ruleset on master (plan D14):
+1. Ruleset on master (plan D14). Simplest: copy get-title-at-url's:
+   `gh api repos/m4bwav/get-title-at-url/rulesets/24003504 --jq '{name,target,enforcement,conditions,bypass_actors,rules}' | gh api -X POST repos/m4bwav/is-an-image-url/rulesets --input -`
+   or the same rules spelled out:
    ```
    gh api -X POST repos/m4bwav/is-an-image-url/rulesets --input - <<'JSON'
    {"name":"master","target":"branch","enforcement":"active",
