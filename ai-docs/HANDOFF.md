@@ -4,11 +4,12 @@
 
 ## Current state
 - 2026-09-26: **2.0.0 released** under `latest` and verified from the registry: provenance (SLSA v1), 1 verified signature and 1 verified attestation, GitHub Release v2.0.0, verify-published run 36251363432 green on Node 20 to 26 (Linux, Windows, macOS), Bun and Deno.
-- `next` still points to 2.0.0-beta.3 (harmless; moving it is optional).
+- `next` still points to 2.0.0-beta.3 (harmless; the overlay's standing decision lets it stay).
 - Ruleset 24042507 on master; Dependabot and CI run weekly; 0 alerts, 0 open pull requests, master is the only branch.
+- D4 done: 1.0.0 to 1.0.4 are deprecated with "1.x depends on the deprecated request package and its CLI is broken; use 2.x" (the maintainer replaced the "..." placeholder; read back 2026-09-26); 2.0.0 is not deprecated.
 
 ## Standing work
-1. D4: 1.x is deprecated (2026-09-26) but its message is literally "..." (a placeholder the agent wrote in chat; the maintainer ran it verbatim). Fix, after the maintainer says "run it" (the maintainer stays logged in to npm on this PC; npm answers 2FA with a browser link): `npm deprecate is-an-image-url@"<2" "1.x depends on the deprecated request package and its CLI is broken; use 2.x"`, then `npm view is-an-image-url@1.0.4 deprecated`. Optional: `npm dist-tag add is-an-image-url@2.0.0 next`.
+1. None on the registry.
 2. Dependents: markdown-plain-link-replacer's run moves to `^2.0.0` (plan D15 says what it can rely on).
 3. Dependabot pull requests: review and merge as they come; `live.yml` runs weekly against real hosts.
 4. Revisit the pooled-socket `false` (plan Risks) only if a user reports spurious `false` answers.
@@ -21,4 +22,4 @@
 - actionlint without shellcheck passed a truncated `[` test in verify-published.yml; package-modernize's scripts/check-workflow-shell.py catches it.
 
 ## Next single action
-Fix the 1.x deprecation message (standing work 1) after the maintainer's "run it".
+None; the run is finished. Merge Dependabot pull requests as they come.
