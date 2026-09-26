@@ -27,6 +27,10 @@ export type Checks = [
 
 export const fromNull: Promise<boolean> = named(null);
 
+// A wrapper passing a callback it may not have: the union overload accepts it.
+declare const maybeCallback: ((isAnImage: boolean) => void) | undefined;
+export const wrapped: void | Promise<boolean> = isAnImageUrl('cat.png', maybeCallback);
+
 // @ts-expect-error -- the url must be a string
 isAnImageUrl(42, () => undefined);
 

@@ -29,7 +29,7 @@ if (await isAnImageUrl('https://example.com/cat')) {
 }
 ```
 
-Options: `timeout`, in milliseconds, is how long to wait for the response headers (default 20000); `signal` is an `AbortSignal` that cancels the check.
+Options: `timeout`, a positive number of milliseconds, is how long to wait for the response headers (default 20000); `signal` is an `AbortSignal` that cancels the check.
 
 ```js
 await isAnImageUrl(url, {timeout: 5000, signal: controller.signal});
@@ -51,7 +51,7 @@ isAnImageUrl(url, isAnImageResult => {
 });
 ```
 
-The callback runs once, always after `isAnImageUrl` returns, with `true` or `false`. A third argument sets the timeout in milliseconds. `require()` returns the function; it also has `.default` and `.isAnImageUrl` pointing to itself.
+The callback runs once, always after `isAnImageUrl` returns, with `true` or `false`. A third argument sets the timeout in milliseconds; as in 1.x, anything but a positive number means the default. `require()` returns the function; it also has `.default` and `.isAnImageUrl` pointing to itself.
 
 ### TypeScript
 
@@ -104,7 +104,7 @@ It prints `true` or `false` and exits 0 either way. Without installing: `npx is-
 ## What it is not
 
 - **Not a content check.** It trusts the server's `Content-Type` and the file extension; it does not read the bytes, so it cannot tell whether an "image" is a valid image.
-- **Not a guard for untrusted URLs.** On a server it requests whatever URL it is given, internal addresses such as `127.0.0.1` or cloud metadata endpoints included. If users supply the URLs, check them against your own allow-list first.
+- **Not a guard for untrusted URLs.** On a server it requests whatever URL it is given, internal addresses such as `127.0.0.1` or cloud metadata endpoints included, and it follows redirects to any host. An allow-list checked on the URL you pass in is therefore not enough, because the server can redirect elsewhere. Don't pass URLs from users unless the network itself stops requests to internal addresses (an egress proxy or firewall).
 - **Limited in browsers.** A browser only lets it read the `Content-Type` of another site's response when that site sends CORS headers; otherwise the answer is `false`.
 
 ## Upgrading from 1.x

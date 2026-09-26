@@ -12,4 +12,4 @@ Only the latest major version (2.x) gets security fixes. 1.x depends on the depr
 
 ## What this package is not
 
-It requests the URL it is given, with one GET plus redirects, and reads only the response headers. It does not guard against server-side request forgery: internal addresses (`127.0.0.1`, private ranges, cloud metadata endpoints) are requested like any other, so check URLs that users supply against your own allow-list first. It trusts the server's `Content-Type` and the file extension, and never inspects the bytes.
+It requests the URL it is given, with one GET plus redirects, and reads only the response headers. It does not guard against server-side request forgery: internal addresses (`127.0.0.1`, private ranges, cloud metadata endpoints) are requested like any other, and redirects are followed to any host, so an allow-list checked on the URL passed in can be bypassed by a redirect. Don't pass URLs from users unless the network stops requests to internal addresses. It trusts the server's `Content-Type` and the file extension, and never inspects the bytes.

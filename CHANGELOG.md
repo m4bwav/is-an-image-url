@@ -14,6 +14,8 @@ All notable changes to this package are documented here. The format follows [Kee
 - A response that is not 2xx is not an image. 1.0.4 answered `true` for a 404 or 500 error page served with an image type, and for a redirect without a `Location` header.
 - The answer comes from the response headers, and the body is not downloaded. 1.0.4 read every image to the end before answering, and answered `false` when the headers arrived but the body stalled past the timeout.
 - A url that is not a string (and not empty), or a callback that is not a function, throws a `TypeError` naming the argument, before any request. 1.0.4 threw Node's own error from `path.extname` for the first, and for the second threw a `TypeError` or, after a request, crashed the process with an uncaught exception.
+- A file path is read the POSIX way on every platform: only `/` separates folders. 1.0.4 used Node's `path` module, which on Windows also split on backslashes, so there `foo.png\` was an image and `dir\.png` was not; 2.0.0 answers both as 1.0.4 did on Linux and macOS.
+- A redirect to a URL with a user name or password answers `false`: `fetch` refuses to follow it. 1.0.4 followed it.
 - Requests use the platform's `fetch`: its request headers, and up to 20 redirects where `request` followed 10. `HTTP_PROXY` and `HTTPS_PROXY` are no longer read by default; Node reads them for `fetch` only when told to (`--use-env-proxy` or `NODE_USE_ENV_PROXY=1` on the Node lines that have them).
 
 ### Fixed
@@ -42,7 +44,7 @@ All notable changes to this package are documented here. The format follows [Kee
 - The extension list is is-image 3.1.0's, unchanged: `.heic` and `.fs` count as images, `.avif` and `.jxl` do not (a URL ending in them is answered by the server instead).
 - `''`, `null`, `undefined`, `0`, `NaN` and `false` answer `false`.
 - Redirects are followed, to other hosts too; only `http:` and `https:` URLs are requested.
-- The timeout is in milliseconds and defaults to 20 seconds; `0`, negative numbers and strings mean the default.
+- The callback form's `timeout` argument is in milliseconds and defaults to 20 seconds; `0`, negative numbers, `Infinity` and strings mean the default. (The Promise form's `timeout` option rejects such values with a `TypeError`.) Timeouts longer than 2147483647 ms (about 24.8 days) are cut to that; 1.0.4 answered `false` at once for them.
 
 ## [1.0.4] - 2019-11-28
 

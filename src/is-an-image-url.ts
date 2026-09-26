@@ -18,6 +18,8 @@ export type IsAnImageUrlOptions = {
 };
 
 const DEFAULT_TIMEOUT = 20_000;
+// The longest delay setTimeout accepts; a longer one fires after 1 ms, which would answer false at once.
+const MAX_TIMEOUT = 2_147_483_647;
 
 const typeName = (value: unknown): string => {
   if (value === null) {
@@ -52,7 +54,7 @@ async function isImageResponse(url: string, timeout: number, signal: AbortSignal
   const controller = new AbortController();
   const timer = setTimeout(() => {
     controller.abort();
-  }, timeout);
+  }, Math.min(timeout, MAX_TIMEOUT));
   const onAbort = () => {
     controller.abort(signal?.reason);
   };
@@ -168,6 +170,10 @@ if (await isAnImageUrl('https://example.com/cat', {timeout: 5000})) {
 ```
 */
 export function isAnImageUrl(url: string | null | undefined, options?: IsAnImageUrlOptions): Promise<boolean>;
+/**
+Either form, for a wrapper that passes a callback or options through: `void` with a callback, a Promise without one.
+*/
+export function isAnImageUrl(url: string | null | undefined, callbackOrOptions?: IsAnImageUrlCallback | IsAnImageUrlOptions, timeout?: number): void | Promise<boolean>;
 export function isAnImageUrl(url: unknown, callbackOrOptions?: unknown, timeout?: unknown): void | Promise<boolean> {
 /* eslint-enable @typescript-eslint/no-restricted-types, unicorn/consistent-boolean-name */
   if (typeof callbackOrOptions !== 'function') {

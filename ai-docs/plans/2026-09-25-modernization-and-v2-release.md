@@ -123,14 +123,14 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 - [x] Golden test first, green on the first build (309 tests: 59 kept exactly, 23 named exceptions, Promise-form parity); then src/, the rest of test/, README, CHANGELOG, SECURITY.md, AGENTS.md (2026-09-26)
 - [x] Verified on Node 20, 22, 24, 26 (368 of 368 each) and from a fresh clone (log)
 - [x] Workflows and Dependabot added, actionlint 1.7.12 and zizmor clean (2026-09-26)
-- [ ] Pushed; pull request opened with a "For review" list. **Stop.**
+- [x] Pushed; pull request #25 opened with a "For review" list (2026-09-26). **Stop.**
 ### Phase 3: review
-- [ ] Independent read-only review (prompts/review-subagent.md) with a differential run of 1.0.4 and the new build against the fixture server; findings fixed or answered; summary on the pull request
+- [x] Independent read-only review with a differential run (about 130 inputs); 8 findings, 7 fixed and 1 answered; summary on #25 (2026-09-26)
 ### Phase 4: CI, settings, merge, cleanup
 - [ ] CI green (run id); ruleset on master; squash-merge after the maintainer's review (SHA)
 - [ ] Alerts 0; 17 bot pull requests closed with one comment each; branches deleted (with the OK); webhooks removed (with the OK); repo settings; secret scanning and push protection; private vulnerability reporting; workflow permissions read
 ### Phase 5: release rehearsal
-- [ ] The maintainer adds the trusted publisher (fields in D13). **Stop.**
+- [x] The maintainer adds the trusted publisher (fields in D13), reported 2026-09-26
 - [ ] 2.0.0-beta.1 tagged and staged; **stop** for the approval; verified from the registry (run id)
 ### Phase 6: release
 - [ ] Changelog dated; 2.0.0 tagged and staged; **stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)

@@ -21,6 +21,10 @@ const EXTENSION_ANSWERS = [
   ['folder.png/readme', false],
   ['a/b/c.webp', true],
   [String.raw`C:\pictures\cat.gif`, true],
+  // POSIX paths on every platform (CHANGELOG: Changed): a backslash is part of the name. 1.0.4 on Windows answered these three the other way.
+  ['foo.png\\', false],
+  [String.raw`dir\.png`, true],
+  ['c:.png', true],
   ['cat.png?size=large', false],
   ['example.com/cat.png', true],
   ['photo.avif', false],
