@@ -128,7 +128,7 @@ jobs:
           bun add "$CONSUMER_PACKAGE"
           bun -e "import f, {isAnImageUrl} from 'is-an-image-url'; if (f !== isAnImageUrl || (await f('cat.png')) !== true) process.exit(1); console.log('import ok');"
           answer=$(bunx --bun --no-install is-an-image-url cat.png)
-          [ "$answer" = "true"
+          [ "$answer" = "true" ]
 
   deno:
     name: deno
