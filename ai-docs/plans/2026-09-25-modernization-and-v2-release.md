@@ -15,7 +15,7 @@ The second run of the package-modernize skill (github.com/m4bwav/package-moderni
 
 ## Status
 
-Active. Phases 0 and 1 done on 2026-09-25, committed locally on `master`, not pushed (the run was told not to push or change anything on GitHub). **Waiting for the maintainer's plan review**: the decisions table below, and the OKs in D10, D11 and D14.
+Active. Phases 0 and 1 done on 2026-09-25. **Plan review done 2026-09-26: the maintainer accepted every recommendation** (confirmed in the session): D1 fixes in both forms, D3b is-image 3.1.0's list exactly, D4 2.0.0 then deprecate 1.x, D6 restore the CLI with exit 0 for `false`; OKs given for D10 (18 branch deletions), D11 (3 webhooks) and D14 (settings, everlast sync push). Phase 2 started 2026-09-26.
 
 ## Goal
 
@@ -116,6 +116,7 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 - [x] Golden capture from the published 1.0.4 committed under `test/golden/` with its script, `codec.cjs` and `fixture-server.cjs`
 - [x] everlast registered (mode repo; sync off for this no-push run, push after the review); AGENTS.md, CLAUDE.md (import line first), Copilot pointer
 ### Phase 1: plan
+- [x] Rulings 2026-09-26: every recommendation stands, all OKs given
 - [x] This plan and the decision record [../decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md](../decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md). **Stop**: the maintainer rules on the table; questions: D1 (fixes in both forms or only the Promise form), D3b (`.avif`), D4 (deprecating 1.x), D6 (restore or drop the CLI), D10 branch deletions, D11 webhook deletion, D14 settings and the everlast sync.
 ### Phase 2: rewrite on branch v2
 - [ ] Remove the D12 files; add the templates; deny dev-only install scripts

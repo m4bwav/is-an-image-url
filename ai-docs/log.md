@@ -19,3 +19,4 @@ Append-only. One line per operation: `## [YYYY-MM-DD] op | title` where op is on
 ## [2026-09-25] update | AGENTS.md (template adapted, everlast block), CLAUDE.md (@AGENTS.md import first), .github/copilot-instructions.md pointer and .gitattributes (LF) added
 ## [2026-09-25] index | rebuilt (3 entries)
 ## [2026-09-25] update | committed locally, nothing pushed: Phases 0 and 1 in 144e9ad on master; skill fixes C-20260925-6 in package-modernize 9665b25; inventory row, kickoff prompt and log in package-modernization 38cb4d1
+## [2026-09-26] update | plan review: the maintainer accepted every recommendation (D1, D3b, D4, D6) and gave the OKs in D10, D11, D14; everlast re-registered with sync push
