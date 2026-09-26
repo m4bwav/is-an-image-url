@@ -34,3 +34,7 @@ Append-only. One line per operation: `## [YYYY-MM-DD] op | title` where op is on
 ## [2026-09-26] verify | after the review fixes: npm test 377/377 on Node 24, and the suites on Node 20 and 26; coverage 100%; consumers 8 pass; xo, tsc, publint, attw clean
 ## [2026-09-26] verify | CI run 36246369400 on the review fixes: all jobs green; review summary posted on #25
 ## [2026-09-26] handoff | stop at the PR #25 merge
+## [2026-09-26] update | PR #25 merged by the maintainer at 13:53Z as merge commit d9e246b (the plan said squash; the merge commit is kept); CI run 36246668568 on master green; Dependabot alerts 0
+## [2026-09-26] update | D10: 17 bot pull requests closed with the plan's comments naming d9e246b and their branches deleted (gh pr close --delete-branch); mime-issue deleted; master is the only remote branch; 0 open pull requests
+## [2026-09-26] verify | README badges (npm version, CI, monthly downloads) all answer 200
+## [2026-09-26] update | not done: ruleset on master and the 2.0.0-beta.1 tag push; the Claude Code auto-mode classifier refused further actions as external system writes after the PR closures, so both wait for the maintainer

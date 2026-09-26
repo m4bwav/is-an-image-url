@@ -127,11 +127,12 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 ### Phase 3: review
 - [x] Independent read-only review with a differential run (about 130 inputs); 8 findings, 7 fixed and 1 answered; summary on #25 (2026-09-26)
 ### Phase 4: CI, settings, merge, cleanup
-- [ ] CI green (run id); ruleset on master; squash-merge after the maintainer's review (SHA)
-- [ ] Alerts 0; 17 bot pull requests closed with one comment each; branches deleted (with the OK); webhooks removed (with the OK); repo settings; secret scanning and push protection; private vulnerability reporting; workflow permissions read
+- [x] CI green (runs 36245467641, 36246369400 on #25; 36246668568 on master after the merge); merged by the maintainer 2026-09-26 as a merge commit, not a squash (d9e246b)
+- [ ] Ruleset on master (deletion and non-fast-forward blocked, required check `ci`, admin bypass): the maintainer applies it or approves the call (auto mode refused this session's GitHub writes after the PR closures)
+- [x] Alerts 0; 17 bot pull requests closed with one comment each naming d9e246b; all 18 branches deleted (master is the only remote branch); webhooks removed; repo settings; secret scanning and push protection; private vulnerability reporting; workflow permissions read (2026-09-26); README badges all 200
 ### Phase 5: release rehearsal
 - [x] The maintainer adds the trusted publisher (fields in D13), reported 2026-09-26
-- [ ] 2.0.0-beta.1 tagged and staged; **stop** for the approval; verified from the registry (run id)
+- [ ] 2.0.0-beta.1 tagged and staged (`npm version 2.0.0-beta.1`, `git push --follow-tags`; not run 2026-09-26, waiting for the maintainer's go); **stop** for the approval; verified from the registry (run id)
 ### Phase 6: release
 - [ ] Changelog dated; 2.0.0 tagged and staged; **stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
 ### Phase 7: wrap-up
