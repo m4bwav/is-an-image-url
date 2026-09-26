@@ -18,3 +18,4 @@ Append-only. One line per operation: `## [YYYY-MM-DD] op | title` where op is on
 ## [2026-09-25] add | plan: Modernization and v2 release (D1 to D16; D1 fixes in both forms or only the Promise form, D3b .avif, D4 deprecating 1.x, D6 restoring the CLI are the maintainer's calls; OKs needed for 18 branch deletions, 3 webhook deletions, repository settings)
 ## [2026-09-25] update | AGENTS.md (template adapted, everlast block), CLAUDE.md (@AGENTS.md import first), .github/copilot-instructions.md pointer and .gitattributes (LF) added
 ## [2026-09-25] index | rebuilt (3 entries)
+## [2026-09-25] update | committed locally, nothing pushed: Phases 0 and 1 in 144e9ad on master; skill fixes C-20260925-6 in package-modernize 9665b25; inventory row, kickoff prompt and log in package-modernization 38cb4d1
