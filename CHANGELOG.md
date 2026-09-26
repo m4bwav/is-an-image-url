@@ -2,7 +2,7 @@
 
 All notable changes to this package are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the package uses [Semantic Versioning](https://semver.org/).
 
-## [2.0.0] - Unreleased
+## [2.0.0] - 2026-09-26
 
 **The compatibility promise.** `require('is-an-image-url')` still returns the function, and `isAnImageUrl(url, callback)` calls back with the same answer 1.0.4 gave, as `true` or `false`, in every case 1.0.4 got right. The test suite checks this against 82 calls recorded from the published 1.0.4 against a local test server, on both builds and every supported Node line. The cases where 2.0.0 answers differently are listed under Changed and Fixed; each one was a wrong answer or a crash.
 
