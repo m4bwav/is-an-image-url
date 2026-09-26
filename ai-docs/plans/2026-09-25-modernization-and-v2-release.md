@@ -119,18 +119,18 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 - [x] Rulings 2026-09-26: every recommendation stands, all OKs given
 - [x] This plan and the decision record [../decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md](../decisions/2026-09-25-v2-promise-api-fetch-fixes-named-exceptions.md). **Stop**: the maintainer rules on the table; questions: D1 (fixes in both forms or only the Promise form), D3b (`.avif`), D4 (deprecating 1.x), D6 (restore or drop the CLI), D10 branch deletions, D11 webhook deletion, D14 settings and the everlast sync.
 ### Phase 2: rewrite on branch v2
-- [ ] Remove the D12 files; add the templates; deny dev-only install scripts
-- [ ] Golden test first, green on the first build; then src/, the rest of test/, README, CHANGELOG, SECURITY.md, AGENTS.md
-- [ ] Verified on Node 20, 22, 24, 26 and from a fresh clone (log)
-- [ ] Workflows and Dependabot added, actionlint and zizmor clean
-- [ ] Pushed; pull request opened with a "For review" list. **Stop.**
+- [x] Remove the D12 files; add the templates; deny dev-only install scripts (2026-09-26; `allowScripts` unrs-resolver false)
+- [x] Golden test first, green on the first build (309 tests: 59 kept exactly, 23 named exceptions, Promise-form parity); then src/, the rest of test/, README, CHANGELOG, SECURITY.md, AGENTS.md (2026-09-26)
+- [x] Verified on Node 20, 22, 24, 26 (368 of 368 each) and from a fresh clone (log)
+- [x] Workflows and Dependabot added, actionlint 1.7.12 and zizmor clean (2026-09-26)
+- [x] Pushed; pull request #25 opened with a "For review" list (2026-09-26). **Stop.**
 ### Phase 3: review
-- [ ] Independent read-only review (prompts/review-subagent.md) with a differential run of 1.0.4 and the new build against the fixture server; findings fixed or answered; summary on the pull request
+- [x] Independent read-only review with a differential run (about 130 inputs); 8 findings, 7 fixed and 1 answered; summary on #25 (2026-09-26)
 ### Phase 4: CI, settings, merge, cleanup
 - [ ] CI green (run id); ruleset on master; squash-merge after the maintainer's review (SHA)
 - [ ] Alerts 0; 17 bot pull requests closed with one comment each; branches deleted (with the OK); webhooks removed (with the OK); repo settings; secret scanning and push protection; private vulnerability reporting; workflow permissions read
 ### Phase 5: release rehearsal
-- [ ] The maintainer adds the trusted publisher (fields in D13). **Stop.**
+- [x] The maintainer adds the trusted publisher (fields in D13), reported 2026-09-26
 - [ ] 2.0.0-beta.1 tagged and staged; **stop** for the approval; verified from the registry (run id)
 ### Phase 6: release
 - [ ] Changelog dated; 2.0.0 tagged and staged; **stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
@@ -224,6 +224,7 @@ All closing happens in Phase 4, after the v2 merge and with alerts at 0. `<SHA>`
 - Bun's and Deno's `fetch` send other headers and may differ on redirects and cancelled bodies; the golden suite runs on Node only (the codec's note), and the functional suite asserts answers, not headers, on the other runtimes.
 - Browsers are supported only for CORS-enabled servers (D16); no browser test runs in CI.
 - The golden file records Node 24.18.0 error text for cases 27 to 36; the exceptions assert the class only.
+- Found in Phase 2: fetch can send a request on a pooled keep-alive socket the server has just closed, and then fails without reaching the server (the answer is `false`). The suites hit it on Node 20, 22 and 26 when the fixture server destroyed its sockets between cases, and now wait 30 ms after doing so. In production it needs a server closing an idle connection at the moment of the next request to the same host; no retry was added (a retry would double the requests of failing cases). Revisit if a user reports spurious `false` answers.
 
 ## Appendix: cleanup commands (all paths absolute)
 
