@@ -1,6 +1,6 @@
 {
   "name": "is-an-image-url",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "description": "Check whether a URL points to an image, by its file extension or else by the Content-Type of the response, with a command line tool. Zero dependencies, TypeScript, ESM and CommonJS, Node 20+.",
   "license": "MIT",
   "repository": {
