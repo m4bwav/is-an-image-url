@@ -33,6 +33,7 @@ npm test               # build, then node --test: golden, unit, functional, CLI,
 npm run test:dist      # the same suites against the dist/ already built, without building
 npm run test:consumers # build, pack, install the tarball into a scratch project, run the ESM, CJS, type and bin fixtures
                        # CONSUMER_RUNTIMES=bun,deno adds Bun and Deno; CONSUMER_PACKAGE=is-an-image-url@<version> installs from npm instead
+npm run test:live      # opt-in smoke test against real sites (live.yml runs it weekly); never part of npm test
 npm run coverage       # c8 over the suites, mapped back to src/; fails under 95% lines or 90% branches
 npm run lint           # xo (config and every rule override, with its reason, in xo.config.js)
 npm run typecheck      # tsc --noEmit
@@ -43,7 +44,8 @@ tsdown needs Node 22.18+ or 24 to build; the built output and the tests run on N
 
 ## Layout and traps
 
-- Planned `src/` (plan, "Build and package specifics"): the function, the inlined is-url pattern and is-image 3.1.0 extension list (each with its MIT notice), an ESM entry, a CommonJS entry that makes `require()` return the function (the replace-string-at-position recipe), and `cli.ts` on `node:util` `parseArgs`, the only file that may use Node APIs.
+- `src/`: `is-an-image-url.ts` (the function, both call forms), `image-extensions.ts` (is-image 3.1.0's list and lookup) and `url-pattern.ts` (is-url 1.2.4's patterns, deliberately without the `u` flag), each inlined with its MIT notice (full texts appended to LICENSE); `index.ts` (ESM entry), `require.ts` (CommonJS entry that makes `require()` return the function, the replace-string-at-position recipe), and `cli.ts` on `node:util` `parseArgs`, the only file that may use Node APIs. tsdown builds the three in `tsdown.config.ts`.
+- Every suite that makes requests (golden, functional, CLI, consumers) uses the one fixture server, `test/golden/fixture-server.cjs`. After `server.dropConnections()` the suites wait 30 ms before the next request: fetch can otherwise send it on a pooled keep-alive socket the server just destroyed, and the request fails without reaching the server (seen on Node 20, 22 and 26, not on 24).
 - `test/golden/1.0.4.json` was captured from the published 1.0.4 by the capture script beside it, in a scratch project, against `test/golden/fixture-server.cjs`, which the golden test starts too. Case arguments hold `{{base}}`, `{{localhost}}`, `{{closed}}` and `{{PORT}}` placeholders; requests are recorded with the port as `{{port}}`. `fetch-probe.cjs` beside them recorded how Node's fetch behaves on the same routes; it is evidence, not a test. Never regenerate the golden file from this repository's code. Lint ignores the golden files and the capture scripts, which are kept as they were run.
 - Tests import `dist/`, never `src/`, and run against both builds (`test/helpers/builds.js`). The npm scripts name every test file, because plain `node --test` would also run the fixtures and the capture scripts.
 - `xo --fix` rewrites code: stage your work first and read the diff it makes to `src/`.
