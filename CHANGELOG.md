@@ -52,6 +52,6 @@ The last 1.x release: one CommonJS file on `request`, `is-image`, `is-url` and `
 
 ## [1.0.3] - 2017-08-18
 
-[Unreleased]: https://github.com/m4bwav/is-an-image-url/compare/v1.0.4...HEAD
+[2.0.0]: https://github.com/m4bwav/is-an-image-url/compare/v1.0.4...HEAD
 [1.0.4]: https://www.npmjs.com/package/is-an-image-url/v/1.0.4
 [1.0.3]: https://www.npmjs.com/package/is-an-image-url/v/1.0.3
