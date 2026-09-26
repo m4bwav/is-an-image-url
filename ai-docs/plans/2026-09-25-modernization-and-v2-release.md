@@ -133,9 +133,10 @@ CommonJS: `module.exports = isAnImageUrl`, with `isAnImageUrl.default` and `isAn
 ### Phase 5: release rehearsal
 - [x] The maintainer adds the trusted publisher (fields in D13), reported 2026-09-26
 - [x] Beta tagged and staged: 2.0.0-beta.3 (beta.1 and beta.2 failed in release.yml on the changelog heading and its link; never staged), run 36248115597, stage id 516120e1-4155-4e48-8ca7-20c5de8a7fbf (2026-09-26)
-- [ ] **Stop** for the maintainer's approval on npm (Staged Packages, 2FA); then verified from the registry (run id)
+- [x] Approved by the maintainer; verified from the registry: dist-tags next 2.0.0-beta.3, signature and attestation verified, verify-published run 36249497972 green after the Bun step fix (2026-09-26)
 ### Phase 6: release
-- [ ] Changelog dated; 2.0.0 tagged and staged; **stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
+- [x] Changelog dated; 2.0.0 tagged and staged (release run 36249691630, stage id fa2f0209-6448-4188-aaee-2c76b7bbe2c9, 2026-09-26)
+- [ ] **Stop** for the approval; verified from the registry; GitHub Release; provenance; the maintainer deprecates 1.x (D4)
 ### Phase 7: wrap-up
 - [ ] HANDOFF.md around standing work; inventory row; lessons into the skill; what the kickoff prompt got wrong
 
