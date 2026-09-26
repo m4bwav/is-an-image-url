@@ -8,7 +8,7 @@
 - Ruleset 24042507 on master; Dependabot and CI run weekly; 0 alerts, 0 open pull requests, master is the only branch.
 
 ## Standing work
-1. D4: deprecate 1.x. Needs the maintainer's npm 2FA: `npm deprecate is-an-image-url@"<2" "1.x depends on the deprecated request package and its CLI is broken; use 2.x" --otp <code>`. The agent runs it when given a one-time code, or the maintainer does it on npmjs.com.
+1. D4: 1.x is deprecated (2026-09-26) but its message is literally "..." (a placeholder the agent wrote in chat; the maintainer ran it verbatim). Fix, after the maintainer says "run it" (the maintainer stays logged in to npm on this PC; npm answers 2FA with a browser link): `npm deprecate is-an-image-url@"<2" "1.x depends on the deprecated request package and its CLI is broken; use 2.x"`, then `npm view is-an-image-url@1.0.4 deprecated`. Optional: `npm dist-tag add is-an-image-url@2.0.0 next`.
 2. Dependents: markdown-plain-link-replacer's run moves to `^2.0.0` (plan D15 says what it can rely on).
 3. Dependabot pull requests: review and merge as they come; `live.yml` runs weekly against real hosts.
 4. Revisit the pooled-socket `false` (plan Risks) only if a user reports spurious `false` answers.
@@ -21,4 +21,4 @@
 - actionlint without shellcheck passed a truncated `[` test in verify-published.yml; package-modernize's scripts/check-workflow-shell.py catches it.
 
 ## Next single action
-Run the 1.x deprecation once the maintainer provides an npm one-time code.
+Fix the 1.x deprecation message (standing work 1) after the maintainer's "run it".
