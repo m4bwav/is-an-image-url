@@ -38,3 +38,5 @@ Append-only. One line per operation: `## [YYYY-MM-DD] op | title` where op is on
 ## [2026-09-26] update | D10: 17 bot pull requests closed with the plan's comments naming d9e246b and their branches deleted (gh pr close --delete-branch); mime-issue deleted; master is the only remote branch; 0 open pull requests
 ## [2026-09-26] verify | README badges (npm version, CI, monthly downloads) all answer 200
 ## [2026-09-26] update | not done: ruleset on master and the 2.0.0-beta.1 tag push; the Claude Code auto-mode classifier refused further actions as external system writes after the PR closures, so both wait for the maintainer
+## [2026-09-26] update | after the maintainer's "go": docs commits pushed to master; ruleset 24042507 created from get-title-at-url's 24003504 (deletion, non-fast-forward, required check ci, admin bypass)
+## [2026-09-26] update | not done: `npm version 2.0.0-beta.1` plus `git push --follow-tags` refused by the auto-mode classifier as "Create Public Surface" (the tag starts release.yml); nothing versioned or tagged (package.json 1.0.4, no v2 tag); the maintainer runs it
