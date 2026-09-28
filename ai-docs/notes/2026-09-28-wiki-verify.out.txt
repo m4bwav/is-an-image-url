@@ -1,0 +1,563 @@
+## installed
+is-an-image-url@2.0.0 on Node v24.18.0
+
+## npm version
+11.16.0
+
+## esm exports
+[ 'default', 'isAnImageUrl' ]
+
+## cjs: require() returns
+function, name isAnImageUrl, own keys default, isAnImageUrl
+
+## cjs .default and .isAnImageUrl are the function itself
+true
+
+## esm default and named export are one function
+true
+
+## the ES module and CommonJS builds are separate copies
+different functions
+
+## package.json fields
+{
+  engines: { node: '>=20' },
+  bin: { 'is-an-image-url': './dist/cli.mjs' },
+  exports: {
+    '.': { import: './dist/index.mjs', require: './dist/index.cjs' },
+    './package.json': './package.json'
+  },
+  dependencies: 'none'
+}
+
+## deep import of is-an-image-url/index.js
+rejects ERR_PACKAGE_PATH_NOT_EXPORTED
+
+## home: node home.mjs
+true
+false
+true
+
+## home: node home.mjs, second run
+true
+false
+true
+
+## getting started: node callback.cjs
+yes, the url was an image
+
+## runtimes: deno --version
+deno 2.9.6 (stable, release, x86_64-pc-windows-msvc)
+
+## runtimes: deno run --allow-net home-deno.mjs
+true
+false
+true
+
+## runtimes: deno run home-deno.mjs (no --allow-net, not a terminal)
+false
+false
+true
+
+## runtimes: bun --version
+1.4.2
+
+## runtimes: bun home.mjs
+true
+false
+true
+
+## runtimes: bun home-callback.cjs
+yes, the url was an image
+
+## package managers: pnpm 12.6.0 install exit 0, then the Home example
+true
+false
+true
+
+## package managers: yarn 1.22.22 install exit 0, then the Home example
+true
+false
+true
+
+## package managers: yarn 4.18.1 install exit 0, then the Home example
+true
+false
+true
+
+## package managers: bun 1.4.2 install exit 0, then the Home example
+true
+false
+true
+
+## typescript: tsc version
+Version 6.0.3
+
+## typescript: ok.mts
+no errors
+
+## typescript: bad.mts
+types/bad.mts(3,48): error TS2769: No overload matches this call.
+  Overload 1 of 3, '(url: string | null | undefined, callback: IsAnImageUrlCallback, timeout?: number | undefined): void', gave the following error.
+    Object literal may only specify known properties, and 'timeout' does not exist in type 'IsAnImageUrlCallback'.
+  Overload 2 of 3, '(url: string | null | undefined, options?: IsAnImageUrlOptions | undefined): Promise<boolean>', gave the following error.
+    Type 'string' is not assignable to type 'number'.
+  Overload 3 of 3, '(url: string | null | undefined, callbackOrOptions?: IsAnImageUrlOptions | IsAnImageUrlCallback | undefined, timeout?: number | undefined): void | Promise<...>', gave the following error.
+    Type 'string' is not assignable to type 'number'.
+--- exit 2
+
+## typescript: cjs.cts
+no errors
+
+## typescript: plain.mts without @types/node or the dom lib (lib es2022 only)
+node_modules/is-an-image-url/dist/index.d.mts(14,12): error TS2304: Cannot find name 'AbortSignal'.
+
+## typescript: plain.mts with the dom lib instead
+no errors
+
+## api: the Promise form returns a Promise
+true
+
+## api: the callback form returns
+undefined
+
+## api: the callback always runs after the call returns
+returned
+callback: true
+
+## api: falsy urls
+'': false
+null: false
+undefined: false
+0: false
+NaN: false
+false: false
+
+## api: errors
+isAnImageUrl(123): rejects TypeError: Expected `url` to be a string, got number
+isAnImageUrl(123, callback): throws TypeError: Expected `url` to be a string, got number
+isAnImageUrl(['cat.png']): rejects TypeError: Expected `url` to be a string, got array
+isAnImageUrl('cat.png', 'yes'): throws TypeError: Expected `callback` to be a function (or an options object), got string
+isAnImageUrl('cat.png', {timeout: 0}): rejects TypeError: Expected `options.timeout` to be a positive number of milliseconds, got number
+isAnImageUrl('cat.png', {timeout: '5000'}): rejects TypeError: Expected `options.timeout` to be a positive number of milliseconds, got string
+isAnImageUrl('cat.png', {signal: {}}): rejects TypeError: Expected `options.signal` to be an AbortSignal, got object
+isAnImageUrl('cat.png', []): rejects TypeError: Expected `options` to be an object, got array
+isAnImageUrl('cat.png', null): resolves true
+
+## api: the callback form's timeout argument
+undefined: still waiting after 1.5 s
+0: still waiting after 1.5 s
+-1: still waiting after 1.5 s
+Infinity: still waiting after 1.5 s
+'300': still waiting after 1.5 s
+300: false within 1.5 s
+
+## api: the Promise form's timeout option
+false (slow server, timeout 300); true (slow server, timeout 2000)
+
+## api: signal
+already aborted: rejects AbortError: This operation was aborted
+already aborted, file name: rejects AbortError: This operation was aborted
+aborted with a reason: rejects Error: user left the page
+AbortSignal.timeout(200): rejects TimeoutError: The operation was aborted due to timeout
+timeout: 200 instead: resolves false
+
+## how the answer is decided: answer, requests the server saw, url
+true  no request                  photo.png
+false no request                  notes.txt
+true  no request                  C:/pictures/cat.gif
+true  no request                  example.com/cat.png
+false no request                  photo.avif
+true  no request                  program.fs
+true  no request                  photo.heic
+true  no request                  https://example.com/missing.png
+true  no request                  https://example.com/missing.PNG?w=10
+false GET /page?file=cat.png      https://example.com/page?file=cat.png
+false GET /page                   https://example.com/page#cat.png
+true  GET /cat                    https://example.com/cat
+true  GET /logo.svg-as-page       https://example.com/logo.svg-as-page
+true  GET /shouting               https://example.com/shouting
+false GET /about                  https://example.com/about
+false GET /octet                  https://example.com/octet
+false GET /untyped                https://example.com/untyped
+false GET /gone                   https://example.com/gone
+true  GET /photo.avif             https://example.com/photo.avif
+true  GET /moved, GET /cat        https://example.com/moved
+true  GET /cat                    http://localhost/cat
+true  GET /elsewhere, GET /cat    https://example.com/elsewhere
+false 21 x GET /loop              https://example.com/loop
+false no request                  http://user:secret@example.com/cat
+false no request                  ftp://example.com/cat
+false no request                  http://127.0.0.1:<port>/cat
+false no request                  //example.com/cat
+false no request                  http://127.0.0.1:<port>/cat
+
+## how the answer is decided: the request fetch sends
+GET /cat (answer true)
+connection: keep-alive
+accept: */*
+accept-language: *
+sec-fetch-mode: cors
+user-agent: node
+accept-encoding: gzip, deflate
+
+## how the answer is decided: an 8 MiB image
+answer true
+
+## how the answer is decided: did the server finish sending the 8 MiB body?
+body finished: false, all bytes written: false
+
+## commands: --help
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+
+## commands: help exit code and stream
+exit 0, stdout 609 characters, stderr 0
+
+## commands: -h equals --help
+true
+
+## commands: is-an-image-url --version
+2.0.0
+0
+
+## commands: is-an-image-url -v
+2.0.0
+0
+
+## commands: is-an-image-url cat.png
+true
+0
+
+## commands: is-an-image-url notes.txt
+false
+0
+
+## commands: is-an-image-url https://example.com/cat
+true
+0
+
+## commands: is-an-image-url https://example.com/about
+false
+0
+
+## commands: is-an-image-url https://example.com/missing.png
+true
+0
+
+## commands: is-an-image-url https://example.com/slow?ms=1500 --timeout 300
+false
+0
+
+## commands: is-an-image-url https://example.com/slow?ms=1500 --timeout=300
+false
+0
+
+## commands: is-an-image-url http://127.0.0.1:<port>/cat
+false
+0
+
+## commands: is-an-image-url 
+error: a URL is required
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url cat.png notes.txt
+error: give one URL at a time
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url https://example.com/cat --timeout 0
+error: --timeout takes a positive number of milliseconds, not "0"
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url https://example.com/cat --timeout soon
+error: --timeout takes a positive number of milliseconds, not "soon"
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url --timeout
+error: Option '--timeout <value>' argument missing
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url --foo cat.png
+error: Unknown option '--foo'. To specify a positional argument starting with a '-', place it at the end of the command after '--', as in '-- "--foo"
+
+  Check whether a URL points to an image.
+
+  Usage
+    $ is-an-image-url <url> [--timeout <ms>]
+
+  Prints true or false. A file name or a URL whose path ends in an image
+  extension is answered without a request; any other URL is requested and
+  answered from the Content-Type of the response.
+
+  Options
+    --timeout <ms>  Give up after this many milliseconds (default 20000)
+    --help, -h      Show this help
+    --version, -v   Show the version
+
+  Exit codes
+    0  true or false was printed
+    2  bad usage
+
+  Example
+    $ is-an-image-url "https://avatars.githubusercontent.com/u/9919?v=4"
+    true
+2
+
+## commands: is-an-image-url -- --foo
+false
+0
+
+## commands: npx is-an-image-url cat.png (in this project)
+true
+
+## recipes: a shell loop over a file of URLs
+true https://example.com/cat
+false https://example.com/about
+true https://example.com/missing.png
+false notes.txt
+
+## recipes: the loop, as written
+while read -r url; do
+  printf '%s %s\n' "$(is-an-image-url "$url")" "$url"
+done < urls.txt
+
+## recipes: check a list
+[ true, false, true, false ]
+
+## recipes: urls.map(isAnImageUrl) without the arrow
+throws TypeError: Expected `callback` to be a function (or an options object), got number
+
+## recipes: keep the images
+2 of 4
+
+## recipes: a few at a time
+10 images
+
+## recipes: one deadline for a whole batch
+[ true, 'TimeoutError', 'TimeoutError' ]
+
+## recipes: util.promisify(isAnImageUrl)
+image: rejects boolean: true
+page: resolves undefined
+
+## recipes: from the callback to the Promise form
+true
+true
+
+## recipes: HTTP_PROXY without NODE_USE_ENV_PROXY (proxy requests seen after)
+false; 0 proxy requests
+
+## recipes: NODE_USE_ENV_PROXY=1 HTTP_PROXY=<proxy> node proxy.mjs
+true
+
+## recipes: what the proxy received
+CONNECT images.invalid:80
+
+## recipes: node --use-env-proxy proxy.mjs
+true
+
+## recipes: what the proxy received (--use-env-proxy)
+CONNECT images.invalid:80
+
+## v1.0.3: cli cat.png
+exit 0
+true
+
+## v1.0.3: cli notes.txt
+exit 0
+false
+
+## v1.0.3: cli --help
+exit 0
+
+  This package was originally created as an async replacement for is-image-url.  I was using that one but my sync security scanner said there was issue with one of the dependencies.  I posted a pull request but a new version never got published, so onward and upward.  The other lib was synchronous, I figured I'd make an async version.
+
+  Usage
+    $ is-an-image-url "<url>"
+
+  Example
+    $ is-an-image-url "https://www.npmjs.com/static/images/collaboration-security.svg"
+
+## v1.0.4: cli cat.png
+exit 1
+TypeError: (options.help || "").replace is not a function
+
+## v1.0.4: cli --help
+exit 1
+TypeError: (options.help || "").replace is not a function
+
+## v1.0.4: cli --version
+exit 1
+TypeError: (options.help || "").replace is not a function
+
+## v1.0.4: the callback answers
+photo.png                          true       before return
+https://example.com/cat            true       after return
+https://example.com/gone           true       after return
+https://example.com/untyped        undefined  after return
+https://example.com/shouting       false      after return
+
+## v1.0.4: a Promise without a callback
+throws Error: Callback must be set to receive the result of the image check.
+
+## golden: 1.0.4 installed today against test/golden/1.0.4.json
+82 calls: 82 with the same answer (return value, throw, callback arguments), 82 with the same timing (callback before or after the call returns), 82 with the same request lines, 82 identical in every recorded detail
+11 CLI runs: 11 identical (exit code, stdout, the error line)
+answers that differ:
+request lines that differ:
+
+## golden: 2.0.0 against test/golden/1.0.4.json (capture script with two lines patched)
+82 calls: 68 with the same answer (return value, throw, callback arguments), 45 with the same timing (callback before or after the call returns), 77 with the same request lines, 2 identical in every recorded detail
+11 CLI runs: 0 identical (exit code, stdout, the error line)
+answers that differ:
+no callback: 1.0.4.json throws Error, now no callback
+no callback, empty url: 1.0.4.json throws Error, now no callback
+callback is null: 1.0.4.json throws Error, now no callback
+callback is a string, network path: 1.0.4.json  uncaught TypeError, now throws TypeError
+upper-case IMAGE/PNG: 1.0.4.json [false], now [true]
+no Content-Type header: 1.0.4.json [{"$undefined":true}], now [false]
+empty Content-Type header: 1.0.4.json [""], now [false]
+404 with image/png: 1.0.4.json [true], now [false]
+500 with image/png: 1.0.4.json [true], now [false]
+302 without a Location header, image type: 1.0.4.json [true], now [false]
+protocol-relative URL (is-url accepts it, new URL() does not): 1.0.4.json throws TypeError, now [false]
+protocol-relative URL with an image extension: 1.0.4.json throws TypeError, now [false]
+URL with an invalid port: 1.0.4.json throws TypeError, now [false]
+image headers then a stalled body, timeout 300: 1.0.4.json [false], now [true]
+request lines that differ:
+no callback: 1.0.4.json [], now ["GET /image"]
+callback is a string, network path: 1.0.4.json ["GET /html"], now []
+user and password in the URL: 1.0.4.json ["GET /echo-auth"], now []
+redirect loop: 1.0.4.json ["GET /redirect-loop","GET /redirect-loop?hop=1","GET /redirect-loop?hop=2","GET /redirect-loop?hop=3","GET /redirect-loop?hop=4","GET /redirect-loop?hop=5","GET /redirect-loop?hop=6","GET /redirect-loop?hop=7","GET /redirect-loop?hop=8","GET /redirect-loop?hop=9","GET /redirect-loop?hop=10"], now ["GET /redirect-loop","GET /redirect-loop?hop=1","GET /redirect-loop?hop=2","GET /redirect-loop?hop=3","GET /redirect-loop?hop=4","GET /redirect-loop?hop=5","GET /redirect-loop?hop=6","GET /redirect-loop?hop=7","GET /redirect-loop?hop=8","GET /redirect-loop?hop=9","GET /redirect-loop?hop=10","GET /redirect-loop?hop=11","GET /redirect-loop?hop=12","GET /redirect-loop?hop=13","GET /redirect-loop?hop=14","GET /redirect-loop?hop=15","GET /redirect-loop?hop=16","GET /redirect-loop?hop=17","GET /redirect-loop?hop=18","GET /redirect-loop?hop=19","GET /redirect-loop?hop=20"]
+credentials in the URL, redirected to another host: 1.0.4.json ["GET /auth-redirect-to-other-host","GET /echo-auth"], now []
+
