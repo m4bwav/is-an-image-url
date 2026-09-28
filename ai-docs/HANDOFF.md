@@ -4,7 +4,8 @@
 
 ## Current state
 - 2026-09-26: **2.0.0 released** under `latest` and verified from the registry: provenance (SLSA v1), 1 verified signature and 1 verified attestation, GitHub Release v2.0.0, verify-published run 36251363432 green on Node 20 to 26 (Linux, Windows, macOS), Bun and Deno.
-- `next` still points to 2.0.0-beta.3 (harmless; the overlay's standing decision lets it stay).
+- `latest` (2.0.0) is the only dist-tag (npm, 2026-09-28; this line said `next` still pointed to 2.0.0-beta.3).
+- GitHub wiki (2026-09-28): ten pages at https://github.com/m4bwav/is-an-image-url/wiki (wiki commit 8861236, working copy `D:\m4bwa\Claude\Projects\Ai\is-an-image-url.wiki`). How to update it, the verification script and its saved output, and five doc inaccuracies (three in the README and CHANGELOG): notes/2026-09-28-github-wiki.md.
 - Ruleset 24042507 on master; Dependabot and CI run weekly; 0 alerts, 0 open pull requests, master is the only branch.
 - D4 done: 1.0.0 to 1.0.4 are deprecated with "1.x depends on the deprecated request package and its CLI is broken; use 2.x" (the maintainer replaced the "..." placeholder; read back 2026-09-26); 2.0.0 is not deprecated.
 
