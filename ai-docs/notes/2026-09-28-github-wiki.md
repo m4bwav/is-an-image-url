@@ -2,7 +2,7 @@
 title: GitHub wiki written and published for 2.0.0
 kind: note
 date: 2026-09-28
-verified: 2026-09-28
+verified: 2026-09-29
 stale_after: 2027-03-28
 tags: [wiki, docs, 2.0.0, github, wikiwright, golden]
 summary: "the ten wiki pages, where their git working copy is, how every example was verified against the published 2.0.0 with a local fixture server (the script and its output beside this note), how the golden capture of 1.0.4 was replayed for Versions and upgrading, the facts the README lacks, the inaccuracies in the shipped docs, and how to update the wiki; read before touching the wiki, the README's CLI help block or Promise-rejection sentence, or the CHANGELOG's compare link"
@@ -49,6 +49,24 @@ The wiki repository already held GitHub's placeholder (commit `83823de`, "Initia
 4. Commit, `git push`, `wikiwright.py live m4bwav/is-an-image-url <wiki dir>`.
 
 Pages that name the version: Home (last line), Getting started (the Deno import, the tool versions), Commands (`--version` output and the first paragraph), Versions and upgrading (the table, downloads, the replay results), Development (the test count), the footer. A new major also changes the golden replay's comparison section.
+
+## Updated 2026-09-29: the Node 20 run
+
+The oldest Node line in `engines` (`>=20`) had not been run (wikiwright L-106 `oldest-node-run`). The saved script ran unchanged, with every optional section (`RT`, `PM=1`, `V104`, `V103`, `GOLDEN`, `BASH`), on Node 24.18.0 and on Node 20.20.2 (from `npx -y -p node@20`; its `node.exe` copied alone into a scratch folder put first on PATH, because the npm package's `bin` folder also holds a text file named `node` that makes Git Bash skip the folder). Wiki commit `c6d5f1b` (`8861236..c6d5f1b`).
+
+**diffout against the saved output.** Node 24.18.0: 85 sections, 85 same (the saved output was left as it was). Node 20.20.2: 79 same, 6 changed; saved as `2026-09-28-wiki-verify.node20.out.txt` (ports as `<port>`, the scratch path in the bad-option line as `<scratch>`). The changes:
+
+1. `installed`: Node v20.20.2.
+2. The proxy recipe: `NODE_USE_ENV_PROXY=1` printed `false` and the stand-in proxy received nothing; `node --use-env-proxy` printed `bad option: --use-env-proxy`, exit 9. Node 20 has neither switch.
+3. The golden replay of 2.0.0: 65 same answers (68 on Node 24), 45 same timing, 64 same request lines (77). The replay of 1.0.4 was identical on both lines. Cause, found by bisecting the capture: `capture-1.0.4.cjs` calls `server.dropConnections()` after every case, and Node 20.20.2's `fetch` sent the next request on the destroyed keep-alive connection, failing with `ECONNRESET` (13 calls, every second request); 2.0.0 answers `false` for any failed request. Node 24.18.0's `fetch` did not reuse the closed connection. A small script with the capture's fixture server reproduced it with `dropConnections()` after each call (Node 20: 2 of 6 calls false with `ECONNRESET`; Node 24: none) and not without it, with pauses up to 26 s, callback or Promise form. So it is Node 20's `fetch` meeting a server that closes idle connections, not a change in 2.0.0. The repository already knew this: `test/functional/is-an-image-url.test.js` waits 30 ms after `server.dropConnections()` for the same reason ("seen on Node 20, 22 and 26" in its comment). The capture script, which only ever ran on Node 24, does not wait; a `sleep(30)` after its `dropConnections()` would make the Node 20 replay comparable (not tried: the golden files were only read).
+
+Everything else (both module systems, the TypeScript cases, the command line, Deno 2.9.6 and Bun 1.4.2, pnpm, both Yarns, the bash loop, 1.0.4 and 1.0.3, the request headers) printed the same on Node 20.20.2.
+
+**Page claims.** Two were wrong or unscoped on Node 20 and were fixed: Recipes, "Through a proxy", told readers to turn proxy support on with the two switches (now "On Node 24.18.0 ..." and a closing sentence with the Node 20.20.2 results), and FAQ, "How do I use a proxy?" (now adds "Both worked on Node 24.18.0; Node 20.20.2 has neither"). Versions and upgrading now says the replays ran on Node 24.18.0 and what Node 20.20.2 gave, with the cause. Getting started says a second run on Node 20.20.2 printed the same apart from those two. Footer date 2026-09-29. The request headers on How the answer is decided (Node 24.18) were the same on Node 20.20.2, so they need no scope.
+
+**Checks.** `wikiwright.py outputs` with the saved Node 24 output: 40 checked, 0 missing (with the Node 20 output: 2 missing, the proxy's `CONNECT` block and the 2.0.0 replay block, both now scoped to Node 24.18.0 on the pages). `check --version 2.0.0`: 0 errors, 0 warnings. Everwrite: 0 strong, 11 weak. `live`: 10 pages, 0 failures, sidebar and footer rendered.
+
+**Next time.** Run the script on Node 20 as well and diff with `2026-09-28-wiki-verify.node20.out.txt`; set `PYTHONIOENCODING=utf-8` for `wikiwright.py diffout` on Windows when outputs hold characters outside cp1252.
 
 ## How the examples were verified
 
