@@ -1,5 +1,7 @@
 # is-an-image-url
 
+![A large magnifying glass inspecting a row of sealed envelopes on a desk, one envelope open revealing a small framed landscape painting inside](https://raw.githubusercontent.com/m4bwav/is-an-image-url/master/.github/images/banner.jpg)
+
 [![npm version](https://img.shields.io/npm/v/is-an-image-url)](https://www.npmjs.com/package/is-an-image-url)
 [![CI](https://github.com/m4bwav/is-an-image-url/actions/workflows/ci.yml/badge.svg)](https://github.com/m4bwav/is-an-image-url/actions/workflows/ci.yml)
 [![npm downloads](https://img.shields.io/npm/dm/is-an-image-url)](https://www.npmjs.com/package/is-an-image-url)
