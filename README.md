@@ -113,6 +113,10 @@ It prints `true` or `false` and exits 0 either way. Without installing: `npx is-
 
 The callback form gives the same answers for everything 1.x got right. The differences are in [CHANGELOG.md](CHANGELOG.md): Node 20 or later, the callback is always asynchronous, 404 pages and responses without a `Content-Type` are `false`, `IMAGE/PNG` counts, and arguments of the wrong type throw a `TypeError`.
 
+## Package page
+
+- npm: [is-an-image-url](https://www.npmjs.com/package/is-an-image-url)
+
 ## License
 
 MIT © [Mark Rogers](https://www.markdavidrogers.com). The extension list comes from [is-image](https://github.com/sindresorhus/is-image) by Sindre Sorhus and the URL pattern from [is-url](https://github.com/segmentio/is-url), both MIT; their notices are in [LICENSE](LICENSE).
